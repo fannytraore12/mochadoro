@@ -79,6 +79,7 @@ html, body {
     align-items: center;
     justify-content: center;
 }
+
 .bg-img{
     position: absolute;
     top: 0;
@@ -243,3 +244,89 @@ html, body {
 .latte-option:active {
     transform: translate(2px, 2px);
 }
+/*Brewing Page*/
+.brewing-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 35px);
+    gap: 20px;
+    overflow: hidden;
+}
+.brewing-container{
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+    width: 512px;
+    height: 512px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+    border: 8px solid #93755E;
+}
+
+
+.kettle{
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+}
+.timer-controls{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 512px;
+    gap: 8px; 
+}
+
+.brew-timer{
+    font-size: 100px;
+    font-weight: bold;
+    color: #5f2d29;
+    flex-shrink: 1;
+    min-width: 0; 
+}
+
+.stop-btn, .pause-btn{
+    background-color: #ECDED2;
+    border: 6px solid #B28A7A;
+    color: #B28A7A;
+    font-size: 24px; 
+    font-weight: bold;
+    padding: 8px 12px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.pause-btn:hover, .stop-btn:hover{
+    transform: translate(4px, 4px);
+}
+.stop-btn{
+    order: 1; /* forces stop to the left */
+}
+
+.brew-timer{
+    order: 2; /* timer stays in the middle */
+}
+
+.pause-btn{
+    order: 3; /* forces pause to the right */
+}
+
+/*Result Page*/
+
+/*Break page*/

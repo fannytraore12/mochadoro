@@ -29,7 +29,7 @@
         </div>
 
         <!-- Menu Page -->
-        <div class="menu-page  ">
+        <div class="menu-page hidden  ">
             <h1 class = "menu-text">choose your coffee</h1>
             <div class = "coffee-options">
                 <button type="button" class="mocha-option" data-time="20">
@@ -56,13 +56,15 @@
         </div>
 
         <!-- Brewing Page -->
-        <div class="brewing-page hidden">
-            <button type="button" id="stop-btn">stop</button>
-            <h1 id="brew-timer">25:00</h1>
-            <button type="button" id="pause-btn">pause</button>
-            <div class = "brewing-container">
+        <div class="brewing-page">
+            <div class="brewing-container">
                 <img src="assets/background.PNG" alt="bean background" class="bg-img">
-                <img src="assets/Brewing1.PNG" alt="kettle">
+                <img src="assets/Brewing1.PNG" alt="kettle" class="kettle">
+            </div>
+            <div class="timer-controls">
+                <button type="button" class="stop-btn">stop</button>
+                <p class="brew-timer">25:00</p>
+                <button type="button" class="pause-btn">pause</button>
             </div>
         </div>
 
