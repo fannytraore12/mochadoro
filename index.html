@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>mochadoro</title>
+</head>
+<body>
+    <!-- Start Page -->
+     <div class = "window-container">
+        <div class = "title-bar">
+            <div class="window-controls">
+                <button class="win-btn minimize-btn">-</button>
+                <button class="win-btn close-btn">X</button>
+            </div>
+        </div>
+        <div class="start-page hidden">
+            <div class="logo-box">
+                <img src="assets/background.PNG" alt="bean background" class="bg-img">
+                <img src="assets/Matcha.png" alt="pomoLogo" class ="pomo-logo">
+                <h1 class="app-title">Mochadoro</h1>
+                <p class="tag-line">Focus & Brew</p>
+            </div>
+            <div class ="action-box">
+                <button type="button" class="start-app-btn">start</button>
+            </div>
+        </div>
+
+        <!-- Menu Page -->
+        <div class="menu-page  ">
+            <h1 class = "menu-text">choose your coffee</h1>
+            <div class = "coffee-options">
+                <button type="button" class="mocha-option" data-time="20">
+                    <img src="assets/Mocha.PNG" class="mocha">
+                    <span class = "label">mocha</span>
+                    <span class = "time">20 min</span>
+                </button>
+                <button type="button" class="espresso-option" data-time="30">
+                    <img src="assets/espresso.PNG" class="espresso">
+                    <span class = "label">espresso</span>
+                    <span class = "time">30 min</span>
+                </button>
+                <button type="button" class="americano-option" data-time="40">
+                    <img src="assets/Americano.PNG" class="americano">
+                    <span class = "label">americano</span>
+                    <span class = "time">40 min</span>
+                </button>
+                <button type="button" class="latte-option" data-time="50">
+                    <img src="assets/Iced_latte.PNG" class="latte">
+                    <span class = "label">latte</span>
+                    <span class = "time">50 min</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Brewing Page -->
+        <div class="brewing-page hidden">
+            <button type="button" id="stop-btn">stop</button>
+            <h1 id="brew-timer">25:00</h1>
+            <button type="button" id="pause-btn">pause</button>
+            <div class = "brewing-container">
+                <img src="assets/background.PNG" alt="bean background" class="bg-img">
+                <img src="assets/Brewing1.PNG" alt="kettle">
+            </div>
+        </div>
+
+        <!-- Result Page -->
+        <div class="result-page hidden">
+            <h1 id="result-message">your coffee is ready :3!</h1>
+            <button type="button" id="break-btn">break</button>
+            <div class ="result-container">
+                <img src="assets/background.PNG" alt="bean background" class="bg-img">
+                <img id="result-coffee-img" src="assets/espresso.PNG" alt="result coffee">
+            </div>
+        </div>
+
+        <!-- Break Page -->
+        <div class="break-page hidden">
+            <div class ="break-container">
+                <img src="assets/background.PNG" alt="bean background" class="bg-img">
+                <img src="assets/Brewing1.PNG" alt="kettle">
+            </div>
+            <div class = break-options>
+            <h1 id="break-timer">05:00</h1>
+                <button type="button" id="skip-btn">skip</button>
+                <button type="button" id="start-break-btn">start</button>
+            </div>    
+        </div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>
