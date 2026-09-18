@@ -171,10 +171,7 @@ html, body {
     margin: 0;
 }
 
-.mocha-option,
-.espresso-option,
-.americano-option,
-.latte-option{
+.timer-opt{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -185,7 +182,7 @@ html, body {
     outline: none;
     border: none;
 }
-.mocha-option img.mocha{
+#mocha-option img.mocha{
 
     width: 256px;
     height: auto;
@@ -206,11 +203,11 @@ html, body {
     font-weight: bold;
     margin: -8px;
 }
-.mocha-option,
-.espresso-option {
+#mocha-option,
+#espresso-option {
     margin-top: 20px;
 }
-.espresso-option img.espresso{
+#espresso-option img.espresso{
 
     width: 256px;
     height: auto;
@@ -219,7 +216,7 @@ html, body {
 }
 
 
-.americano-option img.americano{
+#americano-option img.americano{
 
     width: 256px;
     height: auto;
@@ -227,21 +224,14 @@ html, body {
 
 }
 
-.latte-option img.latte{
+#latte-option img.latte{
     width: 256px;
     height: auto;
     image-rendering: pixelated;
 
 }
 
-.mocha-option:hover,
-.espresso-option:hover,
-.americano-option:hover,
-.latte-option:hover,
-.mocha-option:active,
-.espresso-option:active,
-.americano-option:active,
-.latte-option:active {
+.timer-opt:active {
     transform: translate(2px, 2px);
 }
 /*Brewing Page*/
@@ -294,12 +284,15 @@ html, body {
     gap: 8px; 
 }
 
-.brew-timer{
+.brewing{
     font-size: 100px;
     font-weight: bold;
     color: #5f2d29;
     flex-shrink: 1;
     min-width: 0; 
+}
+#brew-rimer.paused-text {
+  color: #896064; /* Warmer amber color when paused */
 }
 
 .stop-btn, .pause-btn{
@@ -319,7 +312,7 @@ html, body {
     order: 1; /* forces stop to the left */
 }
 
-.brew-timer{
+.brewing{
     order: 2; /* timer stays in the middle */
 }
 

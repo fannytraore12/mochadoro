@@ -16,7 +16,7 @@
                 <button class="win-btn close-btn">X</button>
             </div>
         </div>
-        <div class="start-page hidden">
+        <div id = "start-page" class="start-page">
             <div class="logo-box">
                 <img src="assets/background.PNG" alt="bean background" class="bg-img">
                 <img src="assets/Matcha.png" alt="pomoLogo" class ="pomo-logo">
@@ -24,30 +24,30 @@
                 <p class="tag-line">Focus & Brew</p>
             </div>
             <div class ="action-box">
-                <button type="button" class="start-app-btn">start</button>
+                <button id = "start-btn" type="button" class="start-app-btn">start</button>
             </div>
         </div>
 
         <!-- Menu Page -->
-        <div class="menu-page hidden  ">
+        <div id = "menu-page" class="menu-page hidden  ">
             <h1 class = "menu-text">choose your coffee</h1>
             <div class = "coffee-options">
-                <button type="button" class="mocha-option" data-time="20">
+                <button class ="timer-opt" type="button" id="mocha-option" data-time="1" data-image = "assets/Mocha.PNG">
                     <img src="assets/Mocha.PNG" class="mocha">
                     <span class = "label">mocha</span>
                     <span class = "time">20 min</span>
                 </button>
-                <button type="button" class="espresso-option" data-time="30">
+                <button class ="timer-opt" type="button" id="espresso-option" data-time="30" data-image="assets/espresso.PNG">
                     <img src="assets/espresso.PNG" class="espresso">
                     <span class = "label">espresso</span>
                     <span class = "time">30 min</span>
                 </button>
-                <button type="button" class="americano-option" data-time="40">
+                <button class ="timer-opt" type="button" id="americano-option" data-time="40" data-image="assets/Americano.PNG">
                     <img src="assets/Americano.PNG" class="americano">
                     <span class = "label">americano</span>
                     <span class = "time">40 min</span>
                 </button>
-                <button type="button" class="latte-option" data-time="50">
+                <button class ="timer-opt" type="button" id="latte-option" data-time="50" data-image="assets/latte.PNG">
                     <img src="assets/Iced_latte.PNG" class="latte">
                     <span class = "label">latte</span>
                     <span class = "time">50 min</span>
@@ -56,38 +56,38 @@
         </div>
 
         <!-- Brewing Page -->
-        <div class="brewing-page hidden">
+        <div id ="timer-page" class="brewing-page hidden">
             <div class="brewing-container">
                 <img src="assets/background.PNG" alt="bean background" class="bg-img">
-                <img src="assets/Brewing1.PNG" alt="kettle" class="kettle">
+                <img src="assets/Brewing1.PNG" alt="kettle" class="kettle" id ="brew-kettle">
             </div>
             <div class="timer-controls">
-                <button type="button" class="stop-btn">stop</button>
-                <p class="brew-timer">25:00</p>
-                <button type="button" class="pause-btn">pause</button>
+                <button id ="stop-opt" type="button" class="stop-btn">stop</button>
+                <p id = "brew-timer" class="brewing">25:00</p>
+                <button id ="pause-opt" type="button" class="pause-btn">pause</button>
             </div>
         </div>
 
         <!-- Result Page -->
-        <div class="result-page hidden">
+        <div id  ="result-page" class="result-page hidden">
             <div class ="result-container">
                 <img src="assets/background.PNG" alt="bean background" class="bg-img">
-                <img class="result-coffee-img" src="assets/espresso.PNG" alt="result coffee">
+                <img  id="result-coffee-img" class="result-coffee-img" src="" alt="result coffee">
             </div>
             <h1 class="result-message">your coffee is ready :3!</h1>
-            <button type="button" id="break-btn">next</button>
+            <button id ="break-btn" type="button">next</button>
         </div>
 
         <!-- Break Page -->
-        <div class="break-page ">
+        <div id ="break-page" class="break-page hidden">
             <div class ="break-container">
                 <img src="assets/background.PNG" alt="bean background" class="bg-img">
-                <img src="assets/Brewing1.PNG" class="kettle">
+                <img src="assets/Brewing1.PNG" class="kettle" id = "break-kettle">
             </div>
-            <div class = break-options>
-            <h1 class="break-timer">05:00</h1>
-                <button type="button" class="skip-btn">skip</button>
-                <button type="button" class="start-break-btn">start</button>
+            <div class = "break-options">
+            <h1 id = "break-timer" class="break-timer">05:00</h1>
+                <button id ="skip-opt" type="button" class="skip-btn">skip</button>
+                <button id ="start-opt" type="button" class="start-break-btn">pause</button>
             </div>    
         </div>
     </div>
