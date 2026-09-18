@@ -231,8 +231,11 @@ html, body {
 
 }
 
-.timer-opt:active {
+.timer-opt:hover {
     transform: translate(2px, 2px);
+}
+.timer-opt:active {
+    transform: translate(4px, 4px);
 }
 /*Brewing Page*/
 .brewing-page{
