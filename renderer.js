@@ -199,3 +199,20 @@ skipBtn.addEventListener("click", () => {
     breakPage.classList.add("hidden");
     menuPage.classList.remove("hidden");
 });
+
+const goBackBtn = document.getElementById("go-back");
+
+goBackBtn.addEventListener('click', ()=>{
+    menuPage.classList.add("hidden");
+    startPage.classList.remove("hidden");
+
+
+})
+
+document.getElementById('minimize-btn').addEventListener('click', () => {
+    window.electronAPI.minimizeWindow();
+});
+
+document.getElementById('close-btn').addEventListener('click', () => {
+    window.electronAPI.closeWindow();
+});
