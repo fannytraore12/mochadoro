@@ -183,13 +183,14 @@ const breakTime = document.getElementById("break-timer");
 startBreakBtn.addEventListener("click", () => {
     if (!isPaused) {
         isPaused = true;
-        startBreakBtn.textContent = "resume";
+        startBreakBtn.textContent = "start";
         breakTime.classList.add("paused-text");
         clearInterval(timerInterval);
         stopBrewingAnimation();
     } else {
         isPaused = false;
         startBreakBtn.textContent = "pause";
+        breakTime.classList.remove("paused-text");
         startCountdown();
         startBrewingAnimation();
     }
