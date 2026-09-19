@@ -414,3 +414,13 @@ body{
 .start-break-btn{
     order: 3; /* forces start to the right */
 }
+
+
+#minimize-btn:hover, #close-btn:hover{
+
+    transform: translate(2px,2px);
+}
+
+#break-timer.paused-text {
+  color: #896064;
+}

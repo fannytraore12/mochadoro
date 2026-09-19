@@ -177,13 +177,16 @@ nextBtn.addEventListener("click", () => {
     startBrewingAnimation();
     
 });
+const breakTime = document.getElementById("break-timer");
 
 // --- Break page: pause / resume ---
 startBreakBtn.addEventListener("click", () => {
     if (!isPaused) {
         isPaused = true;
         startBreakBtn.textContent = "resume";
+        breakTime.classList.add("paused-text");
         clearInterval(timerInterval);
+        stopBrewingAnimation();
     } else {
         isPaused = false;
         startBreakBtn.textContent = "pause";
