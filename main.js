@@ -2,10 +2,6 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
 // --- Serial (Arduino) setup ---
-// Wrapped in try/catch: if the 'serialport' package isn't installed or its
-// native binding fails to load, this would otherwise throw here and crash
-// the ENTIRE main process before the window, minimize, or close handlers
-// ever get set up.
 let SerialPort = null;
 try {
     ({ SerialPort } = require('serialport'));

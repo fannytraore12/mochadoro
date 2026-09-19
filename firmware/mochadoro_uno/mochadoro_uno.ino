@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-const int segPins[] = {2, 3, 4, 5, 6, 7, 12}; // a, b, c, d, e, f, g
+const int segPins[] = {7, 12, 4, 5, 3, 2, 6}; // a, b, c, d, e, f, g
 const int buzzerPin = 8;
 const int greenPin = 9;
 const int redPin = 10;
@@ -20,6 +20,40 @@ const byte digitSegments[10][7] = {
   {HIGH, HIGH, HIGH, HIGH, LOW,  HIGH, HIGH}    // 9
 };
 
+void allLedsLow() {
+  digitalWrite(redPin, LOW);
+  digitalWrite(amberPin, LOW);
+  digitalWrite(greenPin, LOW);
+}
+
+void playPourChime() {
+  tone(buzzerPin, 523); // C5
+  delay(60);
+  noTone(buzzerPin);
+  delay(20);
+  tone(buzzerPin, 659); // E5
+  delay(60);
+  noTone(buzzerPin);
+  delay(20);
+  tone(buzzerPin, 784); // G5
+  delay(140);
+  noTone(buzzerPin);
+}
+
+void playSipChime() {
+  tone(buzzerPin, 784); // G5
+  delay(70);
+  noTone(buzzerPin);
+  delay(20);
+  tone(buzzerPin, 659); // E5
+  delay(70);
+  noTone(buzzerPin);
+  delay(20);
+  tone(buzzerPin, 523); // C5
+  delay(220);
+  noTone(buzzerPin);
+}
+
 void setup() {
   Serial.begin(9600);
   for (int i = 0; i < 7; i++) {
@@ -30,6 +64,8 @@ void setup() {
   pinMode(redPin, OUTPUT);
   pinMode(amberPin, OUTPUT);
   
+  allLedsLow();
+  digitalWrite(buzzerPin, LOW);
   clearDisplay();
 }
 
@@ -42,7 +78,19 @@ void loop() {
 }
 
 void parseCommand(String cmd) {
-  if (cmd.startsWith("LED:G:")) {
+  if (cmd == "FOCUS_START") {
+    allLedsLow();
+    digitalWrite(redPin, HIGH);
+    playPourChime();
+  } else if (cmd == "PAUSE") {
+    allLedsLow();
+    digitalWrite(amberPin, HIGH);
+    tone(buzzerPin, 400, 50); // soft haptic tap
+  } else if (cmd == "BREAK_START" || cmd == "SESSION_DONE") {
+    allLedsLow();
+    digitalWrite(greenPin, HIGH);
+    playSipChime();
+  } else if (cmd.startsWith("LED:G:")) {
     digitalWrite(greenPin, cmd.substring(6).toInt() ? HIGH : LOW);
   } else if (cmd.startsWith("LED:A:")) {
     digitalWrite(amberPin, cmd.substring(6).toInt() ? HIGH : LOW);
@@ -54,9 +102,9 @@ void parseCommand(String cmd) {
       showDigit(digit);
     }
   } else if (cmd == "BUZZ:ON") {
-    digitalWrite(buzzerPin, HIGH);
-  } else if (cmd == "BUZZ:OFF") {
-    digitalWrite(buzzerPin, LOW);
+    playPourChime();
+    } else if (cmd == "BUZZ:OFF") {
+    noTone(buzzerPin);
   }
 }
 

@@ -13,7 +13,7 @@ const brewTime = document.getElementById("brew-timer");
 const coffeeImage = document.getElementById("result-coffee-img");
 const pauseBtn = document.getElementById("pause-opt");
 const stopBtn = document.getElementById("stop-opt");
-const nextBtn = document.getElementById("break-btn"); // fixed: was "break-timer"
+const nextBtn = document.getElementById("break-btn");
 
 // --- Break page elements ---
 const breakTimerDisplay = document.getElementById("break-timer");
@@ -23,12 +23,21 @@ const startBreakBtn = document.getElementById("start-opt");
 // --- State ---
 let remainingSeconds = 0;
 let selectedBrewMinutes = 0;
-let totalPaused = 0;
+let totalPaused = 0; // counts how many times pause has been pressed during this brew
 let isPaused = false;
 let isOnBreak = false;
 let timerInterval = null;
-let pauseInterval = null;
 let selectedCoffeeImage = "";
+
+// --- Arduino LED helper ---
+// red   = timer actively running (brewing/focus)
+// green = break active
+// amber = paused
+function setLeds({ red = false, green = false, amber = false } = {}) {
+    window.api.sendArduinoCommand(`LED:R:${red ? 1 : 0}`);
+    window.api.sendArduinoCommand(`LED:G:${green ? 1 : 0}`);
+    window.api.sendArduinoCommand(`LED:A:${amber ? 1 : 0}`);
+}
 
 // --- Start -> Menu ---
 startAppBtn.addEventListener("click", () => {
@@ -58,6 +67,10 @@ document.querySelectorAll(".timer-opt").forEach((button) => {
 
         startCountdown();
         startBrewingAnimation();
+
+        // Arduino: focus/brewing session started -> red on, reset pause-count display
+        setLeds({ red: true });
+        window.api.sendArduinoCommand('DISP:0');
     });
 });
 
@@ -75,6 +88,9 @@ function startCountdown() {
         if (remainingSeconds <= 0) {
             clearInterval(timerInterval);
             if (isOnBreak) {
+                // Break finished -> back to menu
+                setLeds(); // all off
+                window.api.sendArduinoCommand('BUZZ:ON');
                 breakPage.classList.add("hidden");
                 menuPage.classList.remove("hidden");
             } else {
@@ -89,37 +105,42 @@ function startCountdown() {
 
 function showResults(imagePath) {
     clearInterval(timerInterval);
-    clearInterval(pauseInterval);
     stopBrewingAnimation();
     timerPage.classList.add("hidden");
     resultPage.classList.remove("hidden");
     coffeeImage.src = imagePath;
+
+    // Arduino: brewing timer ended (naturally, stopped, or paused too many times) -> buzz, LEDs off
+    setLeds();
+    window.api.sendArduinoCommand('BUZZ:ON');
 }
 
 // --- Pause / resume (brew timer) ---
 pauseBtn.addEventListener("click", () => {
-    if (totalPaused >= 3) {
-        showResults("assets/Still_coffee.PNG");
-        return;
-    }
-
     if (!isPaused) {
+        // Pressing pause: count this pause, update the 7-segment display, amber on
         isPaused = true;
         pauseBtn.textContent = "start";
         brewTime.classList.add("paused-text");
         stopBrewingAnimation();
         clearInterval(timerInterval);
-        clearInterval(pauseInterval);
-        pauseInterval = setInterval(() => {
-            totalPaused++;
-        }, 1000);
+
+        totalPaused++;
+        window.api.sendArduinoCommand(`DISP:${totalPaused}`);
+        setLeds({ amber: true });
+
+        if (totalPaused >= 3) {
+            showResults("assets/Still_coffee.PNG");
+            return;
+        }
     } else {
+        // Resuming -> back to red
         isPaused = false;
         pauseBtn.textContent = "pause";
         brewTime.classList.remove("paused-text");
-        clearInterval(pauseInterval);
         startBrewingAnimation();
         startCountdown();
+        setLeds({ red: true });
     }
 });
 
@@ -168,6 +189,7 @@ nextBtn.addEventListener("click", () => {
 
     remainingSeconds = breakMinutes * 60;
     isOnBreak = true;
+    isPaused = false;
     updateTimerDisplay();
 
     resultPage.classList.add("hidden");
@@ -175,8 +197,12 @@ nextBtn.addEventListener("click", () => {
 
     startCountdown();
     startBrewingAnimation();
-    
+
+    // Arduino: break started -> green on, buzzer off (from the previous ending)
+    setLeds({ green: true });
+    window.api.sendArduinoCommand('BUZZ:OFF');
 });
+
 const breakTime = document.getElementById("break-timer");
 
 // --- Break page: pause / resume ---
@@ -187,12 +213,14 @@ startBreakBtn.addEventListener("click", () => {
         breakTime.classList.add("paused-text");
         clearInterval(timerInterval);
         stopBrewingAnimation();
+        setLeds({ amber: true });
     } else {
         isPaused = false;
         startBreakBtn.textContent = "pause";
         breakTime.classList.remove("paused-text");
         startCountdown();
         startBrewingAnimation();
+        setLeds({ green: true });
     }
 });
 
@@ -202,21 +230,22 @@ skipBtn.addEventListener("click", () => {
     isOnBreak = false;
     breakPage.classList.add("hidden");
     menuPage.classList.remove("hidden");
+    setLeds(); // all off
 });
 
+// --- Go back (menu -> start) ---
 const goBackBtn = document.getElementById("go-back");
-
-goBackBtn.addEventListener('click', ()=>{
+goBackBtn.addEventListener('click', () => {
     menuPage.classList.add("hidden");
     startPage.classList.remove("hidden");
+    setLeds(); // all off, in case a session was left mid-way
+});
 
-
-})
-
+// --- Window controls ---
 document.getElementById('minimize-btn').addEventListener('click', () => {
-    window.electronAPI.minimizeWindow();
+    window.api.minimizeWindow();
 });
 
 document.getElementById('close-btn').addEventListener('click', () => {
-    window.electronAPI.closeWindow();
+    window.api.closeWindow();
 });
