@@ -35,7 +35,7 @@
 * **The Pour (Focus Start)**: Ascending major triad (`523 Hz` for 60ms → `20 ms` gap → `659 Hz` for 60ms → `20 ms` gap → `784 Hz` for 140ms).
 * **The Sip (Break / Completion)**: Soft descending settle (`784 Hz` for 70ms → `20 ms` gap → `659 Hz` for 70ms → `20 ms` gap → `523 Hz` for 220ms).
 
-## Visual Walkthrough (assers by me!)
+## Visual Walkthrough (assets by me!)
 * **Menu & Setup**
   * Start Menu: ![Start the timer](app_demo/Mocha_menu.png)
   * Coffee Selection: ![Choose any coffee](app_demo/Menu.png)
